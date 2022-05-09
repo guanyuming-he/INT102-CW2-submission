@@ -1,14 +1,21 @@
 \documentclass{article}
 
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
+\usepackage{amsmath,amssymb,amsthm}
 
 \usepackage{xcolor}
 
 \usepackage{multirow}
-\usepackage{colortbl,hhline}
+\usepackage{colortbl}
+
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,graphs,graphdrawing,positioning,shapes}
+\usegdlibrary{layered,trees}
+\tikzset{
+	n/.style={rectangle split, rectangle split, rectangle split parts=2,
+	draw=black!80!white,fill=black!15,thick,inner sep=3pt,align=center}, % node
+	ln/.style={anchor=south}, % label number,
+	c/.style={anchor=north,align=center} % comment
+}
 
 \usepackage{hyperref}
 \hypersetup{colorlinks=true}
@@ -79,7 +86,7 @@ The shortest path from a to a is \{(a,a)\}. From a to b is \{(a,c), (c,e) (e,b)\
 
 \section{Question \arabic{section}}
 \subsection{\arabic{subsection})}
-The table is shown below:\\
+The table is shown below:
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c|c|}
 \multicolumn{1}{c}{ } & \multicolumn{1}{c}{-} & \multicolumn{1}{c}{\textcolor{red}{A}} & \multicolumn{1}{c}{\textcolor{red}{G}} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{\textcolor{red}{T}} \\
@@ -103,7 +110,7 @@ According to the table, the longest subsequence is AGT.
 \section{Question \arabic{section}}
 \subsection{\arabic{subsection})}
 \subsubsection{a)}
-The table is shown below:\\
+The table is shown below:
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c|c|}
 \multicolumn{1}{c}{ } & \multicolumn{1}{c}{-} & \multicolumn{1}{c}{A} & \multicolumn{1}{c}{G} & \multicolumn{1}{c}{A} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{T} \\
@@ -121,7 +128,7 @@ T & -4 & -2$\uparrow$ & 0$\uparrow$ & -1$\leftarrow\uparrow$ & -2$\leftarrow\nwa
 \end{tabular}
 \end{center}
 \subsubsection{b)}
-According to the table, an optimal global alignments is:\\
+According to the table, an optimal global alignments is:
 \begin{center}
 \begin{tabular}{ccccccc}
 	 A &  G &  A &  C &  C & \_ & T \\
@@ -131,7 +138,7 @@ According to the table, an optimal global alignments is:\\
 
 \subsection{\arabic{subsection})}
 \subsubsection{a)}	
-The table is shown below:\\
+The table is shown below:
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c|c|}
 \multicolumn{1}{c}{ } & \multicolumn{1}{c}{-} & \multicolumn{1}{c}{A} & \multicolumn{1}{c}{G} & \multicolumn{1}{c}{A} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{T} \\
@@ -150,13 +157,81 @@ T & 0 & 0 & 1$\uparrow$ & 0$\leftarrow\uparrow$ & 0 & 0 & 1$\nwarrow$ \\
 \end{center}
 
 \subsubsection{b)}
-According to the table, an optimal local alignment is:\\
-\begin{center}
+According to the table, an optimal local alignment is:
 \begin{tabular}{cc}
 G & A \\
 G & A
 \end{tabular}
+
+\section{Question \arabic{section}}
+First fill in the matrix:
+\begin{center}
+\begin{tabular}{c|ccccc}
+  & a & b & c & d & e \\
+\hline
+a & 0 & 4 & 5 & 2 & 1 \\
+b & 4 & 0 & 4 & 3 & 1 \\
+c & 5 & 4 & 0 & 1 & 8 \\
+d & 2 & 3 & 1 & 0 & 6 \\
+e & 1 & 1 & 8 & 6 & 0 \\
+\end{tabular}
 \end{center}
+At the beginning, the lower bound is 
+\[
+\lceil\frac{1+2}{2} + \frac{1+3}{2} + \frac{1+4}{2} + \frac{1+2}{2} + \frac{1+1}{2}\rceil = 9
+\]
+
+It is sufficient to only consider tours starting from vertex a. In addition, since it is an undirected graph, a requirement is made that b must be travelled before c, under which it will still be enough to get the correct result. The calculation process is shown below:
+\begin{center}
+\begin{tikzpicture}[tree layout,font=\tiny,level distance=1.4cm, sibling sep=.6em, sibling distance=1.1cm]
+{
+\node (a) [n] {0: a\nodepart{two}$lb = 9$};
+
+\node (ab) [n] {1: a,b\nodepart{two}$lb = 10$};
+\node (ac) [n] {2: a,c\nodepart{two}$\times$\\b after c};
+\node (ad) [n] {3: a,d\nodepart{two}$lb = 9$}; 
+\node (ae) [n] {4: a,e\nodepart{two}$lb = 9$}; 
+
+\node (adb) [n] {5: a,d,b\nodepart{two}$lb = 10$}; 
+\node (adc) [n] {6: a,d,c\nodepart{two}$\times$\\b after c}; 
+\node (ade) [n] {7: a,d,e\nodepart{two}$lb = 14$}; 
+
+\node (adbce) [n] {8: a,d,b,c,\\(e,a)\nodepart{two}$I = 18$};
+\node (adbec) [n] {9: a,d,b,e,\\(c,a)\nodepart{two}$I = 19$};
+
+\node (adebc) [n] {10: a,d,e,b,\\(c,a)\nodepart{two}$I = 18$};
+\node (adecb) [n] {11: a,d,e,c,\\(b,a)\nodepart{two}$\times$\\b after c};
+
+\node (aeb) [n] {12: a,e,b\nodepart{two}$lb = 9$}; 
+\node (aec) [n] {13: a,e,c\nodepart{two}$\times$\\b after c}; 
+\node (aed) [n] {14: a,e,d\nodepart{two}$\times$\\$lb = 14$\\$> I_{15} = 9$};
+
+\node (aebcd) [n] {15: a,e,b,c,\\(d,a)\nodepart{two}$I = 9$};
+\node (aebdc) [n] {16: a,e,b,d,\\(c,a)\nodepart{two}$I = 11$};
+	
+\draw 	(a) edge (ab)
+			edge (ac)
+			edge (ad)
+			edge (ae)
+		(ad) edge (adb)
+			 edge (adc)
+			 edge (ade)
+		(adb) edge (adbce)
+			  edge (adbec)
+		(ade) edge (adebc)
+			  edge (adecb)
+		(ae) edge (aeb)
+			 edge (aec)
+			 edge (aed)
+		(aeb) edge (aebcd)
+			  edge (aebdc);
+};
+\end{tikzpicture}
+\end{center}
+
+According to the process, the optimal tour is: $a \to e \to b \to c \to d \to a$.
+
+\section{Question \arabic{section}}
 
 \end{document}
 
