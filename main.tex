@@ -1,0 +1,163 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{xcolor}
+
+\usepackage{multirow}
+\usepackage{colortbl,hhline}
+\usepackage{tikz}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true}
+
+\author{Guanyuming He\\ID: 2035573}
+\title{INT102 Assignment 2 Submission}
+\date{\today}
+
+\begin{document}
+	\pagenumbering{gobble}
+	\maketitle
+	
+	\newpage
+	\pagenumbering{arabic}
+	
+\section{Question \arabic{section}}
+\subsection{\arabic{subsection})}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+A & G & C & T \\
+\hline
+1 & 2 & 5 & 3 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{\arabic{subsection})}
+The process is shown below:
+\begin{center}
+\begin{tabular}{|ccccccccc|}
+	\hline
+	A & G & C & A & A & T & G & A & A \\
+	A & T & G & A & A &   &   &   &   \\
+	  & A & T & G & A & A &   &   &   \\
+	  &   &   &   & A & T & G & A & A \\
+	\hline
+\end{tabular}
+\end{center}
+The total number of comparisons is 3 (C $\ne$ G) + 1 (T $\ne$ A) + 5 (match found) = 9.
+
+\section{Question \arabic{section}}
+\subsection{\arabic{subsection})}
+The process is shown below, assuming that each iteration goes through the edges in the order from $e_1$ to $e_6$.
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+iteration & a & b & c & d & e \\
+\hline
+before & (a, 0) & (-, $\infty$) & (-, $\infty$) & (-, $\infty$) & (-, $\infty$) \\
+\hline
+1 finish & (a, 0) & \textcolor{red}{(a, 4)} & \textcolor{red}{(a, 5)} & (-, $\infty$) & (-, $\infty$) \\
+\hline
+2 until $e_3$ & (a, 0) & (a, 4) & (a, 5) & \textcolor{red}{(b, 14)} & (-, $\infty$) \\
+2 until $e_4$ & (a, 0) & (a, 4) & (a, 5) & (b, 14) & \textcolor{red}{(c, -2)} \\
+2 finish & (a, 0) & \textcolor{red}{(e, -5)} & (a, 5) & (b, 14) & (c, -2) \\
+\hline
+3 until $e_3$ & (a, 0) & (e, -5) & (a, 5) & \textcolor{red}{(b, 5)} & (c, -2) \\
+3 finish & (a, 0) & (e, -5) & (a, 5) & (b, 5) & (c, -2) \\
+\hline
+4 finish & (a, 0) & (e, -5) & (a, 5) & (b, 5) & (c, -2) \\
+\hline
+5 finish & (a, 0) & (e, -5) & (a, 5) & (b, 5) & (c, -2) \\
+\hline
+\end{tabular}
+\end{center}
+The shortest path from a to a is \{(a,a)\}. From a to b is \{(a,c), (c,e) (e,b)\}. From a to c is \{(a,c)\}. From a to d is \{(a,c), (c,e), (e,b), (b,d)\}. From a to e is \{(a,c), (c,e)\}.
+
+\section{Question \arabic{section}}
+\subsection{\arabic{subsection})}
+The table is shown below:\\
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{-} & \multicolumn{1}{c}{\textcolor{red}{A}} & \multicolumn{1}{c}{\textcolor{red}{G}} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{\textcolor{red}{T}} \\
+\cline{2-8}
+- & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\cline{2-8}
+G & 0 & 0$\uparrow$ & 1$\nwarrow$ & 1$\leftarrow$ & 1$\leftarrow$ & 1$\leftarrow$ & 1$\leftarrow$ \\
+\cline{2-2}
+\textcolor{red}{A} & 0 & \cellcolor{red!50}1$\nwarrow$ & 1$\uparrow$ & 1$\uparrow$ & 1$\uparrow$ & 1$\uparrow$ & 1$\uparrow$ \\
+\cline{2-2}
+\textcolor{red}{G} & 0 & 1$\uparrow$ & \cellcolor{red!50}2$\nwarrow$ & \cellcolor{red!50}2$\leftarrow$ & \cellcolor{red!50}2$\leftarrow$ & \cellcolor{red!50}2$\leftarrow$ & \cellcolor{white}2$\leftarrow$ \\
+\cline{2-2}
+\textcolor{red}{T} & 0 & 1$\uparrow$ & 2$\uparrow$ & 2$\uparrow$ & 2$\uparrow$ & 2$\uparrow$ & \cellcolor{red!50}3$\nwarrow$ \\
+\cline{2-8}
+\end{tabular}
+\end{center}
+
+\subsection{\arabic{subsection})}
+According to the table, the longest subsequence is AGT.
+
+\section{Question \arabic{section}}
+\subsection{\arabic{subsection})}
+\subsubsection{a)}
+The table is shown below:\\
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{-} & \multicolumn{1}{c}{A} & \multicolumn{1}{c}{G} & \multicolumn{1}{c}{A} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{T} \\
+\cline{2-8}
+- & 0 & \cellcolor{red!50}-1 & -2 & -3 & -4 & -5 & -6 \\
+\cline{2-8}
+G & \cellcolor{red!50}-1 & -2$\leftarrow\nwarrow$$\uparrow$ & \cellcolor{red!50}0$\nwarrow$ & -1$\leftarrow$ & -2$\leftarrow$ & -3$\leftarrow$ & -4$\leftarrow$ \\
+\cline{2-2}
+A & -2 & \cellcolor{red!50}0$\nwarrow$ & -1$\leftarrow\uparrow$ & \cellcolor{red!50}1$\nwarrow$ & \cellcolor{red!50}0$\leftarrow$ & \cellcolor{red!50}-1$\leftarrow$ & -2$\leftarrow$ \\
+\cline{2-2}
+G & -3 & -1$\uparrow$ & \cellcolor{red!50}1$\nwarrow$ & \cellcolor{red!50}0$\leftarrow\uparrow$ & \cellcolor{red!50}-1$\leftarrow\uparrow$ & \cellcolor{red!50}-2$\leftarrow\uparrow$ & -3$\leftarrow\uparrow$ \\
+\cline{2-2}
+T & -4 & -2$\uparrow$ & 0$\uparrow$ & -1$\leftarrow\uparrow$ & -2$\leftarrow\nwarrow\uparrow$ & -3$\leftarrow\nwarrow\uparrow$ & \cellcolor{red!50}-1$\nwarrow$ \\
+\cline{2-8}
+\end{tabular}
+\end{center}
+\subsubsection{b)}
+According to the table, an optimal global alignments is:\\
+\begin{center}
+\begin{tabular}{ccccccc}
+	 A &  G &  A &  C &  C & \_ & T \\
+	\_ &  G &  A & \_ & \_ &  G & T
+\end{tabular}
+\end{center}
+
+\subsection{\arabic{subsection})}
+\subsubsection{a)}	
+The table is shown below:\\
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{-} & \multicolumn{1}{c}{A} & \multicolumn{1}{c}{G} & \multicolumn{1}{c}{A} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{C} & \multicolumn{1}{c}{T} \\
+\cline{2-8}
+- & 0 & \cellcolor{red!50}0 & 0 & 0 & 0 & 0 & 0 \\
+\cline{2-8}
+G & \cellcolor{red!50}0 & 0 & \cellcolor{red!50}1$\nwarrow$ & 0$\leftarrow$ & 0 & 0 & 0 \\
+\cline{2-2}
+A & 0 & \cellcolor{red!50}1$\nwarrow$ & 0$\leftarrow$ & \cellcolor{red!50}2$\nwarrow$ & 1$\leftarrow$ & 0$\leftarrow$ & 0 \\
+\cline{2-2}
+G & 0 & 0$\uparrow$ & \cellcolor{red!50}2$\nwarrow$ & 1$\leftarrow$ & 0$\leftarrow\uparrow$ & 0 & 0 \\
+\cline{2-2}
+T & 0 & 0 & 1$\uparrow$ & 0$\leftarrow\uparrow$ & 0 & 0 & 1$\nwarrow$ \\
+\cline{2-8}
+\end{tabular}
+\end{center}
+
+\subsubsection{b)}
+According to the table, an optimal local alignment is:\\
+\begin{center}
+\begin{tabular}{cc}
+G & A \\
+G & A
+\end{tabular}
+\end{center}
+
+\end{document}
+
+
