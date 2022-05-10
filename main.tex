@@ -204,7 +204,7 @@ It is sufficient to only consider tours starting from vertex a. In addition, sin
 
 \node (aeb) [n] {12: a,e,b\nodepart{two}$lb = 9$}; 
 \node (aec) [n] {13: a,e,c\nodepart{two}$\times$\\b after c}; 
-\node (aed) [n] {14: a,e,d\nodepart{two}$\times$\\$lb = 14$\\$> I_{15} = 9$};
+\node (aed) [n] {14: a,e,d\nodepart{two}$lb = 14$\\$\times$\\$> I_{15} = 9$};
 
 \node (aebcd) [n] {15: a,e,b,c,\\(d,a)\nodepart{two}$I = 9$};
 \node (aebdc) [n] {16: a,e,b,d,\\(c,a)\nodepart{two}$I = 11$};
@@ -232,6 +232,16 @@ It is sufficient to only consider tours starting from vertex a. In addition, sin
 According to the process, the optimal tour is: $a \to e \to b \to c \to d \to a$.
 
 \section{Question \arabic{section}}
+\begin{enumerate}
+	\item Contradicts to the knowledge as $\operatorname{NP} \ne \operatorname{NPC}$.
+	\item Although currently most computer scientists believe that $\operatorname{P} \ne \operatorname{NP}$, it is still possible.
+	\item It is not clear whether $\operatorname{NP} = \operatorname{P} \cup \operatorname{NPC}$ or not.
+	\item Contradicts to the knowledge. If $\operatorname{P} \cap \operatorname{NPC} \ne \{\}$, then for some problem $p \in \operatorname{NPC}$, $p$ is solvable in polynomial time. However, as every problem in $\operatorname{NP}$ can be polynomially reduced to some problem in $\operatorname{NPC}$, then every problem in it has to be polynomially solvable, which means $\operatorname{P} = \operatorname{NP}$, a contradiction.
+	\item It is possible.
+\end{enumerate}
+
+\section{Question \arabic{section}}
+Yes, I completed the coursework individually.
 
 \end{document}
 
